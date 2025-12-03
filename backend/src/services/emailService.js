@@ -21,6 +21,18 @@ const createTransporter = () => {
 };
 
 const sendVerificationEmail = async (email, code) => {
+  // Временно: выводим код в консоль вместо отправки email
+  console.log(`\n========================================`);
+  console.log(`Verification code for ${email}: ${code}`);
+  console.log(`========================================\n`);
+
+  // Раскомментируйте для включения email:
+  // const transporter = createTransporter();
+  // if (transporter) {
+  //   await transporter.sendMail(mailOptions);
+  // }
+  return;
+
   const transporter = createTransporter();
 
   const mailOptions = {
