@@ -1,7 +1,6 @@
 # iOS
-*.xcodeproj
-*.xcworkspace
 xcuserdata/
+*.xcworkspacedata
 *.pbxuser
 !default.pbxuser
 *.mode1v3
