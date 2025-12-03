@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AuthView: View {
     @StateObject private var viewModel = AuthViewModel()
+    @FocusState private var isCodeFieldFocused: Bool
 
     var body: some View {
         NavigationStack {
@@ -116,7 +117,7 @@ struct AuthView: View {
 
     private var verificationSection: some View {
         VStack(spacing: 20) {
-            // Code input
+            // Code input - tap to focus
             HStack(spacing: 12) {
                 ForEach(0..<6, id: \.self) { index in
                     CodeDigitView(
@@ -125,15 +126,24 @@ struct AuthView: View {
                     )
                 }
             }
+            .onTapGesture {
+                isCodeFieldFocused = true
+            }
 
             // Hidden text field for input
             TextField("", text: $viewModel.verificationCode)
                 .keyboardType(.numberPad)
+                .focused($isCodeFieldFocused)
                 .frame(width: 1, height: 1)
                 .opacity(0.01)
                 .onChange(of: viewModel.verificationCode) { _, newValue in
                     if newValue.count > 6 {
                         viewModel.verificationCode = String(newValue.prefix(6))
+                    }
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        isCodeFieldFocused = true
                     }
                 }
 
