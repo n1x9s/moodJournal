@@ -6,7 +6,7 @@ const { sendVerificationEmail } = require('../services/emailService');
 
 const router = express.Router();
 
-// POST /api/auth/register - Send verification code
+// POST /api/auth/register - Send verification code to email
 router.post('/register',
   [
     body('email').isEmail().normalizeEmail().withMessage('Введите корректный email')
